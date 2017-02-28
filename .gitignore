@@ -1,0 +1,10 @@
+**/
+.DS_Store
+
+*.cmp
+*.qip
+*.bak
+*.qsf
+*.qws
+*.qpf
+
