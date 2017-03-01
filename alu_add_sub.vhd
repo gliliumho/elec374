@@ -135,5 +135,5 @@ END SYN;
 -- Retrieval info: GEN_FILE: TYPE_NORMAL alu_add_sub.inc FALSE
 -- Retrieval info: GEN_FILE: TYPE_NORMAL alu_add_sub.cmp TRUE
 -- Retrieval info: GEN_FILE: TYPE_NORMAL alu_add_sub.bsf FALSE
--- Retrieval info: GEN_FILE: TYPE_NORMAL alu_add_sub_inst.vhd FALSE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL alu_add_sub_inst.vhd TRUE
 -- Retrieval info: LIB_FILE: lpm

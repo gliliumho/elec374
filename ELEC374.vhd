@@ -7,16 +7,22 @@ entity ELEC374 is
 	port (
 
 	--Cout, Zlowout, MDRout, R2out, R3out : out std_logic;
-	
-	MARin, Zin, 
+
+	MARin, Zin,
 	r0in, r1in, r2in, r3in, r4in,
 	r5in, r6in, r7in, r8in, r9in,
 	r10in, r11in, r12in, r13in, r14in,
 	r15in, HIin, LOin, Zhighin, Zlowin,
 	PCin, MDRin, InPortin, Cin, Yin: in std_logic;
-	
+
+	MARout, Zout,
+	r0out, r1out, r2out, r3out, r4out,
+	r5out, r6out, r7out, r8out, r9out,
+	r10out, r11out, r12out, r13out, r14out,
+	r15out, HIout, LOout, Zhighout, Zlowout,
+	PCout, MDRout, outPortout, Cout, Yout: in std_logic;
 	IncPC, read_sig : in std_logic;
-	
+
 	ctrl_op : in std_logic_vector(3 downto 0);
 	Mdatain : in std_logic_vector(31 downto 0);
 	clk, reset: in std_logic
@@ -90,11 +96,11 @@ port map (
 	hi_toBus, lo_toBus, zhi_toBus, zlo_toBus,
 	pc_toBus, mdr_toBus,
 
-	r0in,r1in,r2in,r3in,r4in,
-	r5in,r6in,r7in,r8in,r9in,
-	r10in,r11in,r12in,r13in,r14in,
-	r15in,HIin,LOin,Zhighin,Zlowin,
-	PCin, MDRin, InPortin, Cin,
+	r0out,r1out,r2out,r3out,r4out,
+	r5out,r6out,r7out,r8out,r9out,
+	r10out,r11out,r12out,r13out,r14out,
+	r15out,HIout,LOout,Zhighout,Zlowout,
+	PCout, MDRout, outPortout, Cout,
 
 	BusMuxOut => bus_out
 );
