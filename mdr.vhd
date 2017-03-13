@@ -29,7 +29,7 @@ mem_data_reg : reg32
 	port map (
 		--encoder_in => x_in,
 		clk	=>	clk,
-		reset_n => clear,
+		reset_n => '0', -- Fix this later 11111111111111111111111111111111111111
 		en => MDRin,
 		d => mux_to_reg,
       q 	=> BusMuxIn

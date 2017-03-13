@@ -46,16 +46,18 @@ muxout <=	r0_busin 	when (sel = "00000")
 		else	zlo_busin	when (sel = "10011")
 		else	pc_busin		when (sel = "10100")
 		else	mdr_busin	when (sel = "10101")
-		else	(others => '0')	when (sel = "10110")
-		else	(others => '0')	when (sel = "10111")
-		else	(others => '0')	when (sel = "11000")
-		else	(others => '0')	when (sel = "11001")
-		else	(others => '0')	when (sel = "11010")
-		else	(others => '0')	when (sel = "11011")
-		else	(others => '0')	when (sel = "11100")
-		else	(others => '0')	when (sel = "11101")
-		else	(others => '0')	when (sel = "11110")
-		else	(others => '0')	when (sel = "11111");
+		else	(others => '0');
+		
+--		else	(others => '0')	when (sel = "10110")
+--		else	(others => '0')	when (sel = "10111")
+--		else	(others => '0')	when (sel = "11000")
+--		else	(others => '0')	when (sel = "11001")
+--		else	(others => '0')	when (sel = "11010")
+--		else	(others => '0')	when (sel = "11011")
+--		else	(others => '0')	when (sel = "11100")
+--		else	(others => '0')	when (sel = "11101")
+--		else	(others => '0')	when (sel = "11110")
+--		else	(others => '0')	when (sel = "11111");
 		
 		
 end architecture;

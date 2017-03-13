@@ -46,6 +46,16 @@ set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
+set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
+set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH ELEC374_tb -section_id eda_simulation
+set_global_assignment -name EDA_TEST_BENCH_NAME ELEC374_tb -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id ELEC374_tb
+set_global_assignment -name EDA_TEST_BENCH_RUN_SIM_FOR "500 ns" -section_id ELEC374_tb
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME ELEC374_tb -section_id ELEC374_tb
+set_global_assignment -name EDA_TEST_BENCH_FILE ELEC374_tb.vhd -section_id ELEC374_tb
+set_global_assignment -name VHDL_FILE ELEC374_tb.vhd
 set_global_assignment -name VHDL_FILE ELEC374.vhd
 set_global_assignment -name SOURCE_FILE alu_add_sub.cmp
 set_global_assignment -name SOURCE_FILE alu_div.cmp
@@ -63,7 +73,4 @@ set_global_assignment -name VHDL_FILE mdr.vhd
 set_global_assignment -name VHDL_FILE alu.vhd
 set_global_assignment -name QIP_FILE alu_div.qip
 set_global_assignment -name QIP_FILE alu_add_sub.qip
-set_global_assignment -name VHDL_FILE adder_tb.vhd
-set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
-set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

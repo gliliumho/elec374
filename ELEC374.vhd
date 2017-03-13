@@ -7,26 +7,27 @@ entity ELEC374 is
 	port (
 
 	--Cout, Zlowout, MDRout, R2out, R3out : out std_logic;
-
-	MARin, Zin,
+	
+	MARin, 
 	r0in, r1in, r2in, r3in, r4in,
 	r5in, r6in, r7in, r8in, r9in,
 	r10in, r11in, r12in, r13in, r14in,
 	r15in, HIin, LOin, Zhighin, Zlowin,
-	PCin, MDRin, InPortin, Cin, Yin: in std_logic;
-
-	MARout, Zout,
+	PCin, IRin, MDRin, InPortin, Cin, Yin: in std_logic;
+	
+	MARout, 
 	r0out, r1out, r2out, r3out, r4out,
 	r5out, r6out, r7out, r8out, r9out,
 	r10out, r11out, r12out, r13out, r14out,
 	r15out, HIout, LOout, Zhighout, Zlowout,
 	PCout, MDRout, outPortout, Cout, Yout: in std_logic;
 	IncPC, read_sig : in std_logic;
-
+	
 	ctrl_op : in std_logic_vector(3 downto 0);
 	Mdatain : in std_logic_vector(31 downto 0);
-	clk, reset: in std_logic
-
+	clk, reset: in std_logic;
+	
+	BusOut: out std_logic_vector(31 downto 0)
 	);
 end entity;
 
@@ -50,6 +51,7 @@ signal bus_out: std_logic_vector(31 downto 0);
 
 signal y_toALU: std_logic_vector(31 downto 0);
 signal alu_toZ: std_logic_vector(63 downto 0);
+signal IRout: std_logic_vector(31 downto 0);
 
 
 begin
@@ -75,10 +77,11 @@ reg15x : reg32 port map (clk, reset, r15in, bus_out, r15_toBus);
 
 regHIx : reg32 port map (clk, reset, HIin, bus_out, hi_toBus);
 regLOx : reg32 port map (clk, reset, LOin, bus_out, lo_toBus);
-regZhighx : reg32 port map (clk, reset, Zhighin, bus_out, zhi_toBus);
-regZlowx : reg32 port map (clk, reset, Zlowin, bus_out, zlo_toBus);
+regZhighx : reg32 port map (clk, reset, Zhighin, alu_toZ(63 downto 32), zhi_toBus);
+regZlowx : reg32 port map (clk, reset, Zlowin, alu_toZ(31 downto 0), zlo_toBus);
 
 regPCx : reg32 port map (clk, reset, PCin, bus_out, pc_toBus);
+regIRx : reg32 port map (clk, reset, IRin, bus_out, IRout);
 
 regMDRx : mdr port map (clk, reset, read_sig, MDRin, bus_out, Mdatain, mdr_toBus);
 
@@ -104,5 +107,8 @@ port map (
 
 	BusMuxOut => bus_out
 );
+
+BusOut <= bus_out;
+
 
 end architecture;

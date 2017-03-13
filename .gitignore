@@ -1,8 +1,12 @@
-**/
+*
+!/testbench/
+!*.*
 .DS_Store
 
 *.cmp
 *.qip
 *.bak
 *.qws
+*.rpt
+*.bsf
 

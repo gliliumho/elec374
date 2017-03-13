@@ -23,6 +23,9 @@ architecture behaviour of alu is
 
 signal g,p,cout: std_logic;
 signal cla_result: std_logic_vector(15 downto 0);
+signal add_result,sub_result: std_logic_vector(31 downto 0);
+signal div_result, mul_result: std_logic_vector(63 downto 0);
+
 
 
 component cla_16bit
@@ -39,6 +42,33 @@ component cla_16bit
 	 );
 end component;
 
+component alu_add_sub
+	PORT
+	(
+		add_sub		: IN STD_LOGIC ;
+		dataa		: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+		datab		: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+		result		: OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
+	);
+END component;
+
+component alu_div
+	PORT
+	(
+		denom		: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+		numer		: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+		quotient		: OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
+		remain		: OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
+	);
+END component;
+
+component booth_mult 
+	port(
+		M, Q : in std_logic_vector(31 downto 0);
+		P_final : out std_logic_vector(63 downto 0)
+	);
+end component;
+
 
 begin
 
@@ -50,9 +80,38 @@ CLA : cla_16bit port map (
 			sum => cla_result,
 			gout => g,
 			pout => p,
-			cout => cout);
+			cout => cout
+	);
 
-process(P)
+ADD : alu_add_sub port map (		
+		add_sub		=>'1',
+		dataa		=>regA,
+		datab		=>regB,
+		result		=>	add_result	
+	);
+	
+SUB : alu_add_sub port map (	
+		add_sub		=>	'0',
+		dataa		=>	regA,
+		datab		=>	regB,
+		result		=>	sub_result	
+	);
+	
+DIV : alu_div port map (
+		denom		=>	regB,
+		numer		=>	regA,
+		quotient	=>	div_result(63 downto 32),
+		remain	=>	div_result(31 downto 0)
+	);	
+	
+MUL : booth_mult port map (
+		M			=>	regA,
+		Q			=>	regB,
+		P_final 	=>	mul_result
+	);
+	
+	
+process (sel,regA,regB)
 	begin
 	if sel="0000" then
 		regC(63 downto 32) <= (others => '0');
@@ -80,22 +139,27 @@ process(P)
 	--rotate left
 		regC(63 downto 32) <= (others => '0');
 		regC(31 downto 0) <=regB(30 downto 0) & regB(31);
-	--elsif sel="1000" then
-		--regC <= regA + regB;
-		--Add using megafunction
-	--elsif sel="1001" then
-		--regC <= regA +neg(regB);
+	elsif sel="1000" then
+		regC(63 downto 32) <= (others => '0');
+		regC(31 downto 0) <= add_result;
+	elsif sel="1001" then
+		regC(63 downto 32) <= (others => '0');
+		regC(31 downto 0) <= sub_result;
 	--Sub using megafunction
-	--elsif sel="1010" then
-		--null;
+	
+	elsif sel="1010" then
+		regC <= mul_result;
 	--Multiply using array multiplier
-	--elsif sel="1011" then
-		--NULL;
+		
+	elsif sel="1011" then
+		regC <= div_result;
 	--Divide using built in
+	
 	elsif sel="1100" then
 		regC(63 downto 16) <= (others => '0');
 		regC(15 downto 0) <= cla_result;
-
+	else
+		regC <= (others => '0');
 	end if;
 end process;
 
